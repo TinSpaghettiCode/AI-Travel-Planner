@@ -26,7 +26,7 @@ export default function Login() {
 
         <Text
           style={{
-            fontFamily: "roboto",
+            fontFamily: "roboto-regular",
             fontSize: 17,
             textAlign: "center",
             color: Colors.GRAY,
@@ -42,7 +42,7 @@ export default function Login() {
             style={{
               color: Colors.WHITE,
               textAlign: "center",
-              fontFamily: "roboto",
+              fontFamily: "roboto-regular",
               fontSize: 17,
             }}
           >
