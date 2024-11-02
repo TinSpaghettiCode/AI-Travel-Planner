@@ -1,9 +1,21 @@
+import SignUp from "@/app/auth/sign-up";
 import Login from "@/components/Login";
-import { Text, View } from "react-native";
+import { auth } from "@/configs/FirebaseConfig";
+import { Href, Redirect } from "expo-router";
+import { useEffect } from "react";
+import { Text, ToastAndroid, View } from "react-native";
 
 export default function Index() {
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    console.log(user);
+    ToastAndroid.show("Welcome to the app", ToastAndroid.SHORT);
+  }, [user]);
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
+      {user ? <Redirect href={"/(tabs)/mytrip" as Href} /> : <Login />}
       <Login />
     </View>
   );
