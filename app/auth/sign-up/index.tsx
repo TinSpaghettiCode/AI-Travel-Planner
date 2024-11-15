@@ -5,26 +5,26 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
-} from "react-native";
-import { useState } from "react";
-import { useNavigation, useRouter } from "expo-router";
-import { Colors } from "@/constants/Colors";
-import { auth } from "../../../configs/FirebaseConfig";
+} from 'react-native';
+import { useState } from 'react';
+import { useNavigation, useRouter } from 'expo-router';
+import { Colors } from '@/constants/Colors';
+import { auth } from '../../../configs/FirebaseConfig';
 
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUp() {
   const navigation = useNavigation();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
 
   const OnCreateAccount = (): void => {
     if (!email && !password && !fullName) {
-      ToastAndroid.show("Please enter all details", ToastAndroid.BOTTOM);
+      ToastAndroid.show('Please enter all details', ToastAndroid.BOTTOM);
       return;
     }
 
@@ -32,7 +32,7 @@ export default function SignUp() {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        router.replace("/mytrip");
+        router.replace('/mytrip');
         console.log(user);
         // ...
       })
@@ -50,7 +50,7 @@ export default function SignUp() {
         padding: 25,
         paddingTop: 50,
         backgroundColor: Colors.WHITE,
-        height: "100%",
+        height: '100%',
       }}
     >
       {/* Back button */}
@@ -58,13 +58,13 @@ export default function SignUp() {
         <AntDesign name="arrowleft" size={24} color="black" />
       </TouchableOpacity>
 
-      <Text style={{ fontFamily: "roboto-bold", fontSize: 30, marginTop: 30 }}>
+      <Text style={{ fontFamily: 'roboto-bold', fontSize: 30, marginTop: 30 }}>
         Create New Account
       </Text>
 
       {/* User Full Name */}
       <View style={{ marginTop: 50 }}>
-        <Text style={{ fontFamily: "roboto-regular" }}>Full Name</Text>
+        <Text style={{ fontFamily: 'roboto-regular' }}>Full Name</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter Full Name"
@@ -74,7 +74,7 @@ export default function SignUp() {
 
       {/* Email */}
       <View style={{ marginTop: 20 }}>
-        <Text style={{ fontFamily: "roboto-regular" }}>Email</Text>
+        <Text style={{ fontFamily: 'roboto-regular' }}>Email</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter Email"
@@ -84,7 +84,7 @@ export default function SignUp() {
 
       {/* Password */}
       <View style={{ marginTop: 20 }}>
-        <Text style={{ fontFamily: "roboto-regular" }}>Password</Text>
+        <Text style={{ fontFamily: 'roboto-regular' }}>Password</Text>
         <TextInput
           secureTextEntry={true}
           style={styles.input}
@@ -103,13 +103,13 @@ export default function SignUp() {
           marginTop: 50,
         }}
       >
-        <Text style={{ color: Colors.WHITE, textAlign: "center" }}>
+        <Text style={{ color: Colors.WHITE, textAlign: 'center' }}>
           Create Account
         </Text>
       </TouchableOpacity>
 
       {/* Sign In Button */}
-      <TouchableOpacity onPress={() => router.push("/auth/sign-in")}>
+      <TouchableOpacity onPress={() => router.push('/auth/sign-in')}>
         <View
           style={{
             padding: 15,
@@ -119,7 +119,7 @@ export default function SignUp() {
             borderWidth: 1,
           }}
         >
-          <Text style={{ color: Colors.PRIMARY, textAlign: "center" }}>
+          <Text style={{ color: Colors.PRIMARY, textAlign: 'center' }}>
             Sign In
           </Text>
         </View>
@@ -134,6 +134,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15,
     borderColor: Colors.GRAY,
-    fontFamily: "roboto-regular",
+    fontFamily: 'roboto-regular',
   },
 });

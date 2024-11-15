@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
-import { Colors } from "@/constants/Colors";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import StartNewTripCard from "@/components/MyTrips/StartNewTripCard";
+import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Colors } from '@/constants/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import StartNewTripCard from '@/components/MyTrips/StartNewTripCard';
 
 export default function MyTrip() {
   const [userTrips, setUserTrips] = useState([]);
@@ -13,18 +13,18 @@ export default function MyTrip() {
         padding: 25,
         paddingTop: 55,
         backgroundColor: Colors.WHITE,
-        height: "100%",
+        height: '100%',
       }}
     >
       <View
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignContent: "center",
-          justifyContent: "space-between",
+          display: 'flex',
+          flexDirection: 'row',
+          alignContent: 'center',
+          justifyContent: 'space-between',
         }}
       >
-        <Text style={{ fontFamily: "roboto-bold", fontSize: 35 }}>
+        <Text style={{ fontFamily: 'roboto-bold', fontSize: 35 }}>
           My Trips
         </Text>
         <Ionicons name="add-circle" size={50} color={Colors.PRIMARY} />

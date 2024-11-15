@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Colors } from "@/constants/Colors";
-import { useRouter } from "expo-router";
+import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Colors } from '@/constants/Colors';
+import { useRouter } from 'expo-router';
 
 export default function StartNewTripCard() {
   const router = useRouter();
@@ -12,21 +12,21 @@ export default function StartNewTripCard() {
       style={{
         padding: 20,
         marginTop: 50,
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         gap: 20,
       }}
     >
       <Ionicons name="location-sharp" size={30} color={Colors.PRIMARY} />
-      <Text style={{ fontSize: 25, fontFamily: "roboto-medium" }}>
+      <Text style={{ fontSize: 25, fontFamily: 'roboto-medium' }}>
         No trips planned yet
       </Text>
 
       <Text
         style={{
           fontSize: 20,
-          fontFamily: "roboto-regular",
-          textAlign: "center",
+          fontFamily: 'roboto-regular',
+          textAlign: 'center',
           color: Colors.GRAY,
         }}
       >
@@ -40,12 +40,12 @@ export default function StartNewTripCard() {
           borderRadius: 15,
           paddingHorizontal: 30,
         }}
-        onPress={() => router.push("/create-trip/search-place")}
+        onPress={() => router.push('/create-trip/search-place')}
       >
         <Text
           style={{
             color: Colors.WHITE,
-            fontFamily: "roboto-medium",
+            fontFamily: 'roboto-medium',
             fontSize: 17,
           }}
         >

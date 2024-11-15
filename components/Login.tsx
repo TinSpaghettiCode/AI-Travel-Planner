@@ -1,19 +1,19 @@
-import { Colors } from "@/constants/Colors";
-import { useRouter } from "expo-router";
-import React from "react";
-import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { Colors } from '@/constants/Colors';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 export default function Login() {
   const router = useRouter();
-  const { height } = Dimensions.get("window");
+  const { height } = Dimensions.get('window');
 
   return (
     <View>
       <Image
-        source={require("./../assets/images/login.png")}
+        source={require('./../assets/images/login.png')}
         style={{
-          width: "100%",
+          width: '100%',
           height: height * 0.4,
         }}
       />
@@ -21,8 +21,8 @@ export default function Login() {
         <Text
           style={{
             fontSize: 30,
-            fontFamily: "roboto-bold",
-            textAlign: "center",
+            fontFamily: 'roboto-bold',
+            textAlign: 'center',
             marginTop: 10,
           }}
         >
@@ -31,9 +31,9 @@ export default function Login() {
 
         <Text
           style={{
-            fontFamily: "roboto-regular",
+            fontFamily: 'roboto-regular',
             fontSize: 17,
-            textAlign: "center",
+            textAlign: 'center',
             color: Colors.GRAY,
             marginTop: 20,
           }}
@@ -44,13 +44,13 @@ export default function Login() {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/auth/sign-in")}
+          onPress={() => router.push('/auth/sign-in')}
         >
           <Text
             style={{
               color: Colors.WHITE,
-              textAlign: "center",
-              fontFamily: "roboto-regular",
+              textAlign: 'center',
+              fontFamily: 'roboto-regular',
               fontSize: 17,
             }}
           >
@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 25,
-    height: "100%",
+    height: '100%',
   },
 
   button: {
     padding: 15,
     backgroundColor: Colors.PRIMARY,
     borderRadius: 99,
-    marginTop: "20%",
+    marginTop: '20%',
   },
 });

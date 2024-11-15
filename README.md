@@ -48,3 +48,13 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## NOTE
+
+- React-native google places auto complete.
+
+## Problem
+
+- Can't activate google cloud billing account
+  - Lý do: Google Maps API bị ban tại VN https://cloud.google.com/maps-platform/terms/maps-prohibited-territories/?hl=en
+  * [Hướng thay thế]: Goong.io (Chờ xác nhận). https://document.goong.io/tutorial-react-native.html

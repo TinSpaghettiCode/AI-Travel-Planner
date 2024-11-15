@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
-import React, { useEffect } from "react";
-import { useNavigation } from "expo-router";
-import { Colors } from "@/constants/Colors";
+import { View, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { useNavigation } from 'expo-router';
+import { Colors } from '@/constants/Colors';
 
-import "react-native-get-random-values";
-import { ScrollView } from "react-native-virtualized-view";
+import 'react-native-get-random-values';
+import { ScrollView } from 'react-native-virtualized-view';
 
 export default function SearchPlace() {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ export default function SearchPlace() {
     navigation.setOptions({
       headerShown: true,
       headerTransparent: true,
-      headerTitle: "Search",
+      headerTitle: 'Search',
     });
   }, []);
 
@@ -24,7 +24,7 @@ export default function SearchPlace() {
         padding: 25,
         paddingTop: 75,
         backgroundColor: Colors.WHITE,
-        height: "100%",
+        height: '100%',
       }}
     ></ScrollView>
   );
