@@ -1,13 +1,16 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import { CreateTripContext } from '@/context/CreateTripContext';
 
 /* Stop at 1:46:00, Record: 30:00 */
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [tripData, setTripData] = useState<any>([]);
+
   const [loaded, error] = useFonts({
     'roboto-regular': require('./../assets/fonts/Roboto-Regular.ttf'),
     'roboto-medium': require('./../assets/fonts/Roboto-Medium.ttf'),
@@ -20,23 +23,24 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded, error]);
-
   if (!loaded && !error) {
     return null;
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
-      <Stack.Screen
-        name="auth/sign-in/index"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="auth/sign-up/index"
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <CreateTripContext.Provider value={{ tripData, setTripData }}>
+      <Stack screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
+        <Stack.Screen
+          name="auth/sign-in/index"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="auth/sign-up/index"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </CreateTripContext.Provider>
   );
 }

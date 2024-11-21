@@ -58,3 +58,7 @@ Join our community of developers creating universal apps.
 - Can't activate google cloud billing account
   - Lý do: Google Maps API bị ban tại VN https://cloud.google.com/maps-platform/terms/maps-prohibited-territories/?hl=en
   * [Hướng thay thế]: Goong.io (Chờ xác nhận). https://document.goong.io/tutorial-react-native.html
+
+## References
+
+https://stackoverflow.com/questions/78494804/expo-stuck-on-welcome-to-expo-screen

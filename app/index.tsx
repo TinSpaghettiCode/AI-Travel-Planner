@@ -15,7 +15,8 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1 }}>
-      {user ? <Redirect href={'/(tabs)/mytrip'} /> : <Login />}
+      {/* {user ? <Redirect href={'/(tabs)/mytrip'} /> : <Login />} */}
+      <Login />
     </View>
   );
 }
