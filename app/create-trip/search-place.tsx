@@ -38,7 +38,7 @@ export default function SearchPlace() {
         onPress={() => {
           setTripData({
             locationInfo: {
-              name: 'Hồ Gươm',
+              name: 'Hồ Gươm, Hà Nội, Việt Nam',
               coordinates: {
                 lat: 21.0285, // Correct latitude for Hồ Gươm
                 lng: 105.8542, // Correct longitude for Hồ Gươm

@@ -1,24 +1,37 @@
-import { Colors } from '@/constants/Colors';
-import { Link, useNavigation, useRouter } from 'expo-router';
-import { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { SelectTravellerList } from '@/constants/Options';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigation, useRouter } from 'expo-router';
+import { SelectBudgetOptions } from '@/constants/Options';
 import OptionCard from '@/components/CreateTrip/OptionCard';
-import { TouchableOpacity } from 'react-native';
+import { Colors } from '@/constants/Colors';
 import { CreateTripContext } from '@/context/CreateTripContext';
 
-const SelectTraveller = () => {
+const SelectBudget = () => {
   const navigation = useNavigation();
+  const { tripData, setTripData } = useContext<any>(CreateTripContext);
   const router = useRouter();
 
-  const [selectedTraveller, setSelectedTraveller] = useState<{
+  const [selectedOptions, setSelectedOptions] = useState<{
     id: number;
     title: string;
     desc: string;
     icon: string;
-    people: string;
   } | null>(null);
-  const { tripData, setTripData } = useContext<any>(CreateTripContext);
+
+  const onClickContunue = () => {
+    if (!selectedOptions) {
+      ToastAndroid.show('Please select a budget option', ToastAndroid.SHORT);
+      return;
+    }
+
+    router.push('/create-trip/review-trip');
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,52 +42,53 @@ const SelectTraveller = () => {
   }, []);
 
   useEffect(() => {
-    setTripData({ ...tripData, traveller: selectedTraveller });
-  }, [selectedTraveller]);
+    setTripData({ ...tripData, budget: selectedOptions });
+  }, [selectedOptions]);
 
   return (
     <View
       style={{
-        padding: 25,
         paddingTop: 75,
+        padding: 25,
         backgroundColor: Colors.WHITE,
         height: '100%',
       }}
     >
       <Text
         style={{
-          fontSize: 35,
           fontFamily: 'roboto-bold',
+          fontSize: 35,
           marginTop: 20,
         }}
       >
-        Who's Travelling
+        Budget
       </Text>
 
-      <View>
+      <View
+        style={{
+          marginTop: 20,
+        }}
+      >
         <Text
           style={{
-            paddingVertical: 10,
             fontFamily: 'roboto-bold',
-            fontSize: 23,
+            fontSize: 20,
           }}
         >
-          Choose your traveller
+          Choose spending habits for your trip
         </Text>
 
         <FlatList
-          data={SelectTravellerList}
+          data={SelectBudgetOptions}
           keyExtractor={(item) => item.id.toString()} // Ensure each item has a unique key
           renderItem={({ item }) => (
             <TouchableOpacity
               style={{
                 marginVertical: 10,
               }}
-              onPress={() => {
-                setSelectedTraveller(item);
-              }}
+              onPress={() => setSelectedOptions(item)}
             >
-              <OptionCard option={item} selectedOptions={selectedTraveller} />
+              <OptionCard option={item} selectedOptions={selectedOptions} />
             </TouchableOpacity>
           )}
         />
@@ -87,9 +101,7 @@ const SelectTraveller = () => {
           backgroundColor: Colors.PRIMARY,
           borderRadius: 15,
         }}
-        onPress={() => {
-          router.push('/create-trip/select-dates');
-        }}
+        onPress={onClickContunue}
       >
         <Text
           style={{
@@ -107,4 +119,4 @@ const SelectTraveller = () => {
   );
 };
 
-export default SelectTraveller;
+export default SelectBudget;

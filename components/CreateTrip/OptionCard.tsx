@@ -4,21 +4,21 @@ import { Colors } from '@/constants/Colors';
 
 const OptionCard = ({
   option,
-  selectedTraveller,
+  selectedOptions,
 }: {
   option: {
     id: number;
     title: string;
     desc: string;
     icon: string;
-    people: string;
+    people?: string;
   };
-  selectedTraveller: {
+  selectedOptions: {
     id: number;
     title: string;
     desc: string;
     icon: string;
-    people: string;
+    people?: string;
   } | null;
 }) => {
   return (
@@ -32,7 +32,7 @@ const OptionCard = ({
           backgroundColor: Colors.LIGHT_GRAY,
           borderRadius: 15,
         },
-        selectedTraveller?.id === option?.id && {
+        selectedOptions?.id === option?.id && {
           borderWidth: 3,
         },
       ]}
