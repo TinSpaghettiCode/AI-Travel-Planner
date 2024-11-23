@@ -2,26 +2,25 @@
 import { initializeApp } from 'firebase/app';
 import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyCZCk3XX2cISlsQATwpU3jhr7qvOlBqgs0',
-  authDomain: 'gotiq-775ff.firebaseapp.com',
-  projectId: 'gotiq-775ff',
-  storageBucket: 'gotiq-775ff.appspot.com',
-  messagingSenderId: '534477790532',
-  appId: '1:534477790532:web:6d48148cbafbb5d61b0b11',
-  measurementId: 'G-20QEQZVW98',
+  apiKey: process.env.EXPO_PUBLIC_REACT_APP_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_REACT_APP_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_REACT_APP_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// initialize Firebase Auth for that app immediately
+// Initialize Firebase Auth for that app immediately
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
+const db = getFirestore(app);
 
-export { app, auth };
+export { app, auth, db };

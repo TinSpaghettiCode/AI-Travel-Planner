@@ -5,7 +5,6 @@ import { Colors } from '@/constants/Colors';
 import CalendarPicker from 'react-native-calendar-picker';
 import moment from 'moment';
 import { CreateTripContext } from '@/context/CreateTripContext';
-import { set } from 'date-fns';
 
 const SelectDate = () => {
   const navigation = useNavigation();

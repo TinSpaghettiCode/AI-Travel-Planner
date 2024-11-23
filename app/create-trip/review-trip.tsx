@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect } from 'react';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { CreateTripContext } from '@/context/CreateTripContext';
@@ -195,6 +195,9 @@ const ReviewTrip = () => {
           padding: 15,
           backgroundColor: Colors.PRIMARY,
           borderRadius: 15,
+        }}
+        onPress={() => {
+          router.push('/create-trip/generate-trip');
         }}
       >
         <Text
