@@ -27,6 +27,8 @@ export default function SignIn() {
   // }, []);
 
   const onSignIn = (): void => {
+    ToastAndroid.show('Signed In successfully', ToastAndroid.BOTTOM);
+    router.replace('/mytrip');
     if (!email && !password) {
       ToastAndroid.show('Please enter Email & Password', ToastAndroid.BOTTOM);
       return;
