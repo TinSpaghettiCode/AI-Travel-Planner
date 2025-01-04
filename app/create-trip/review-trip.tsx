@@ -63,7 +63,7 @@ const ReviewTrip = () => {
       >
         {/* <Ionicons name="location" size={34} color="black" /> */}
         <Text style={{ fontSize: 25 }}>📍</Text>
-        <View>
+        <View style={{ width: 300 }}>
           <Text
             style={{
               fontFamily: 'roboto-regular',
@@ -78,6 +78,8 @@ const ReviewTrip = () => {
               fontFamily: 'roboto-medium',
               fontSize: 20,
             }}
+            numberOfLines={1} // Thêm thuộc tính này để giới hạn số dòng
+            ellipsizeMode="tail" // Thêm thuộc tính này để hiển thị dấu chấm 3 khi dòng quá dài
           >
             {tripData?.locationInfo?.name}
           </Text>

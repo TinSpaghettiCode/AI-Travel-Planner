@@ -42,7 +42,6 @@ export default function MyTrip() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, ' => ', doc.data());
       const tripData = doc.data() as UserTripsProps; // Cast to UserTripsProps
       setUserTrips((prev) => [...prev, { ...tripData, docId: doc.id }]);
     });

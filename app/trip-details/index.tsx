@@ -1,6 +1,6 @@
 import { View, Text, Image, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { TripDataProps } from '@/components/CreateTrip/tripData';
 import { UserTripsProps } from '@/components/MyTrips/props';
 import { Colors } from '@/constants/Colors';
@@ -20,7 +20,6 @@ export default function TripDetails() {
 
   const [userTrip, setUserTrip] = useState<UserTripsProps>();
   const [tripDetails, setTripDetails] = useState<TripDataProps>();
-  // const router = useRouter();
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,21 +28,22 @@ export default function TripDetails() {
       headerTitle: '',
     });
 
-    const userTrip: UserTripsProps = JSON.parse(trip);
-    setUserTrip(userTrip);
+    const _userTrip: UserTripsProps = JSON.parse(trip);
+    setUserTrip(_userTrip);
 
-    const _tripDetails: TripDataProps = JSON.parse(userTrip.tripData);
+    const _tripDetails: TripDataProps = JSON.parse(_userTrip.tripData);
     setTripDetails(_tripDetails);
   }, []);
+
+  useEffect(() => {
+    console.log(userTrip, tripDetails, 'tripsss');
+  }, [userTrip, tripDetails]);
 
   return (
     tripDetails && (
       <ScrollView>
         <Image
           source={require('./../../assets/images/image_1.jpeg')}
-          // source={{
-          //   uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${tripDetails?.locationInfo?.photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
-          // }}
           style={{
             width: '100%',
             height: 330,
@@ -66,8 +66,7 @@ export default function TripDetails() {
               fontFamily: 'roboto-bold',
             }}
           >
-            {userTrip?.tripPlan?.travelPlan?.destination ||
-              userTrip?.tripPlan?.travelPlan?.location}
+            {userTrip?.tripPlan?.destination || tripDetails?.locationInfo?.name}
           </Text>
 
           <View
@@ -110,21 +109,18 @@ export default function TripDetails() {
           {/* Flight Info */}
           <FlightInfo
             flightData={
-              userTrip?.tripPlan?.travelPlan?.flights?.length > 0
-                ? userTrip?.tripPlan?.travelPlan?.flights[0]
-                : userTrip?.tripPlan?.travelPlan?.flightDetails?.[0]
+              userTrip?.tripPlan?.flightDetails?.length > 0
+                ? userTrip?.tripPlan?.flightDetails[0]
+                : null
             }
           />
 
           {/* Hotels List */}
-          <HotelList hotelList={userTrip?.tripPlan.travelPlan?.hotels} />
+          <HotelList hotelList={userTrip?.tripPlan?.hotels} />
 
           {/* Trip Day Planner Info */}
           <PlannedTrip
-            dailyPlan={
-              userTrip?.tripPlan?.travelPlan?.dailyPlans ||
-              userTrip?.tripPlan?.travelPlan?.dailyPlan
-            }
+            dailyPlan={userTrip?.tripPlan?.dailyPlan || []} // Đảm bảo là mảng
           />
         </View>
       </ScrollView>

@@ -73,7 +73,7 @@ export default function FlightInfo({ flightData }: FlightInfoParams) {
           marginTop: 7,
         }}
       >
-        Airline: {flightData.airline}
+        Airline: {flightData?.airline}
       </Text>
       <Text
         style={{
@@ -81,7 +81,7 @@ export default function FlightInfo({ flightData }: FlightInfoParams) {
           fontSize: 17,
         }}
       >
-        Price: {flightData.price} $
+        Price: {flightData?.price}
       </Text>
     </View>
   );

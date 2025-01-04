@@ -51,15 +51,16 @@ export default function UserTripCard({ trip }: UserTripCardParams) {
         }}
       />
 
-      <View>
+      <View style={{ width: 300, gap: 5 }}>
         <Text
           style={{
             fontFamily: 'roboto-medium',
             fontSize: 16,
           }}
+          numberOfLines={1}
         >
           {trip?.tripPlan?.travelPlan?.destination ||
-            trip?.tripPlan?.travelPlan?.location}
+            trip?.tripPlan?.destination}
         </Text>
         <Text
           style={{
