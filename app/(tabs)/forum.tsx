@@ -13,22 +13,13 @@ import { Colors } from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import MainForumPage from '../forum/main-forum';
-
-interface Channel {
-  id: string;
-  name: string;
-  description: string;
-}
-
-const mockChannels: Channel[] = [
-  { id: '1', name: 'General', description: 'Discuss anything here!' },
-  { id: '2', name: 'Tech', description: 'Explore the latest in tech.' },
-  { id: '3', name: 'Gaming', description: 'Talk about your favorite games.' },
-];
+import { db } from '@/configs/FirebaseConfig';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { Image } from 'react-native';
 
 const ForumScreen = () => {
-  const [channels, setChannels] = useState<Channel[]>([]);
-  const [currentChannel, setCurrentChannel] = useState<Channel | null>(null);
+  const [channels, setChannels] = useState<any[]>([]);
+  const [currentChannel, setCurrentChannel] = useState<any | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const router = useRouter();
 
@@ -36,16 +27,52 @@ const ForumScreen = () => {
     initialize();
   }, []);
 
+  useEffect(() => {
+    // After channels are fetched and state is updated, set the current channel
+    if (channels.length > 0) {
+      // Set current channel to the one named 'General'
+      const generalChannel = channels.find(
+        (channel) => channel.name === 'General'
+      );
+      console.log('generalChannel', generalChannel);
+      setCurrentChannel(generalChannel || channels[0]);
+    }
+  }, [channels]); // This useEffect depends on the channels state
+
   const initialize = async () => {
-    setChannels(mockChannels); // Load mock channels
-    if (mockChannels.length > 0) {
-      setCurrentChannel(mockChannels[0]); // Default to the first channel
+    await fetchChannels();
+  };
+
+  const fetchChannels = async () => {
+    try {
+      // Query to get posts for the specific channel
+      const channelsQuery = query(
+        collection(db, 'Channels'),
+        orderBy('createdAt')
+      );
+
+      const querySnapshot = await getDocs(channelsQuery);
+      const fetchedChannels: any[] = [];
+      querySnapshot.forEach((doc) => {
+        const channelData = doc.data();
+        const channel = {
+          id: doc.id,
+          name: channelData.name,
+          description: channelData.description,
+          createdAt: channelData.createdAt.toDate(),
+        };
+        fetchedChannels.push(channel);
+      });
+
+      setChannels(fetchedChannels); // This triggers the useEffect to run
+    } catch (e) {
+      console.error('Error fetching channels:', e);
     }
   };
 
   const onRefresh = async () => {
     setIsRefreshing(true);
-    initialize(); // Simulate refreshing
+    await fetchChannels(); // Refresh the channels data
     setIsRefreshing(false);
   };
 
@@ -78,7 +105,18 @@ const ForumScreen = () => {
     >
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.header}>Forum</Text>
+          <Image
+            source={require('@/assets/images/icon.png')}
+            style={{ width: 52, height: 52 }}
+          />
+          <Text
+            style={{
+              fontFamily: 'roboto-bold',
+              fontSize: 33,
+            }}
+          >
+            Forum
+          </Text>
           <TouchableOpacity
             onPress={() => router.push('/forum/create-channel')}
           >
@@ -112,6 +150,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 30,
     padding: 16,
   },
   header: {
