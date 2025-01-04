@@ -11,16 +11,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import StartNewTripCard from '@/components/MyTrips/StartNewTripCard';
 import { useRouter } from 'expo-router';
 import { auth, db } from '@/configs/FirebaseConfig';
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import UserTripList from '@/components/MyTrips/UserTripList';
 import { UserTripsProps } from '@/components/MyTrips/props';
-
+import { Image } from 'react-native';
 export default function MyTrip() {
   const router = useRouter();
   const [userTrips, setUserTrips] = useState<UserTripsProps[]>([]);
@@ -53,8 +47,8 @@ export default function MyTrip() {
       style={{
         flex: 1,
         backgroundColor: Colors.WHITE,
-        padding: 25,
-        paddingTop: 55,
+        marginTop: 30,
+        padding: 16,
       }}
     >
       {/* Ensure the parent view takes full height */}
@@ -67,13 +61,18 @@ export default function MyTrip() {
             display: 'flex',
             flexDirection: 'row',
             alignContent: 'center',
+            alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
+          <Image
+            source={require('@/assets/images/icon.png')}
+            style={{ width: 52, height: 52 }}
+          />
           <Text
             style={{
               fontFamily: 'roboto-bold',
-              fontSize: 35,
+              fontSize: 33,
             }}
           >
             My Trips
