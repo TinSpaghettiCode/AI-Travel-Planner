@@ -23,6 +23,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="forum"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="people" size={24} color={color} />
+          ),
+          tabBarLabel: 'Forum',
+        }}
+      />
+      <Tabs.Screen
         name="discover"
         options={{
           tabBarIcon: ({ color }) => (
@@ -31,6 +40,7 @@ export default function TabLayout() {
           tabBarLabel: 'Discover',
         }}
       />
+
       <Tabs.Screen
         name="profile"
         options={{
