@@ -1,0 +1,17 @@
+export const travelSuggestions = [
+  'Best places to visit in Europe',
+  'Travel tips for solo travelers',
+  'Top beaches in the world',
+  'How to find cheap flights?',
+  'Hidden gems in Asia',
+  'Best hiking trails in North America',
+  'Top cultural festivals to experience worldwide',
+  'Must-try street food around the world',
+  'How to pack light for a month-long trip?',
+  'Family-friendly vacation spots',
+  'Top cities for a romantic getaway',
+  'Best travel destinations for adventure seekers',
+  'How to plan a road trip on a budget?',
+  'The most scenic train routes worldwide',
+  'Traveling on a shoestring budget',
+];

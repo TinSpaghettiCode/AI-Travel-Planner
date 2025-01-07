@@ -103,7 +103,7 @@ const ArticleDetail = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.actionBarTitle}>Post Details</Text>
+        <Text style={styles.actionBarTitle}>Article Details</Text>
       </View>
 
       <ScrollView style={styles.contentContainer}>

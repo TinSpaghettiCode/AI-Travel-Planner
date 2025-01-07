@@ -16,11 +16,12 @@ import MainForumPage from '../forum/main-forum';
 import { db } from '@/configs/FirebaseConfig';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { Image } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 const ForumScreen = () => {
   const [channels, setChannels] = useState<any[]>([]);
   const [currentChannel, setCurrentChannel] = useState<any | null>(null);
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const ForumScreen = () => {
 
   const initialize = async () => {
     await fetchChannels();
+    setIsRefreshing(false);
   };
 
   const fetchChannels = async () => {
@@ -133,6 +135,8 @@ const ForumScreen = () => {
               );
             }}
           />
+        ) : isRefreshing ? (
+          <ActivityIndicator size="large" color="#7fbbf0" />
         ) : (
           <Text style={styles.noChannelText}>No channel selected</Text>
         )}
@@ -150,7 +154,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 30,
     padding: 16,
   },
   header: {
