@@ -1,5 +1,4 @@
 import ArticleCard from '@/components/Articles/ArticleCard';
-import { mockLocations } from '@/constants/Locations';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useRef, useState, useEffect } from 'react';
@@ -13,6 +12,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Location } from './../../constants/Locations';
+import { db } from '@/configs/FirebaseConfig';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  doc,
+  updateDoc,
+  addDoc,
+} from 'firebase/firestore';
 
 export default function Discover() {
   return (
@@ -22,26 +32,37 @@ export default function Discover() {
   );
 }
 
-const fetchLocations = (
-  category: string | null = null
-): Promise<Location[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (category) {
-        resolve(
-          mockLocations.filter((location) => location.category === category)
-        );
-      } else {
-        resolve(mockLocations);
-      }
-    }, 1000);
-  });
-};
-
 const TravelGuideScreen = () => {
-  const [locations, setLocations] = useState(mockLocations); // Using updated mock data
+  const [locations, setLocations] = useState<Location[]>([]); // Using updated mock data
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const fetchLocations = async () => {
+    try {
+      const postsQuery = query(collection(db, 'Articles'));
+
+      const querySnapshot = await getDocs(postsQuery);
+      const fetchedArticles: Location[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.data().title || '',
+        location: doc.data().location || '',
+        description: doc.data().description || '',
+        category: doc.data().category || '',
+        rating: doc.data().rating || 0,
+        imageUrls: doc.data().imageUrls || [],
+        createdAt: doc.data().createdAt || '',
+        author: doc.data().author || '',
+      }));
+
+      setLocations(fetchedArticles);
+    } catch (e) {
+      console.error('Error fetching posts:', e);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   // Filter locations based on category and search query
   const filteredLocations = locations.filter((location) => {

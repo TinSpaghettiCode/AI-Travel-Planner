@@ -8,15 +8,14 @@ import {
   FlatList,
   StyleSheet,
   KeyboardAvoidingView,
-  ActivityIndicator,
+  Image,
   Platform,
 } from 'react-native';
-import { Card } from 'react-native-paper';
+import { ActivityIndicator, Card } from 'react-native-paper';
 import { auth, db } from './../../configs/FirebaseConfig';
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PostItem from './PostCard';
-import * as NavigationBar from 'expo-navigation-bar';
 
 interface Comment {
   id: string;
@@ -26,7 +25,6 @@ interface Comment {
 }
 
 const CommentPage = () => {
-  const visibility = NavigationBar.useVisibility();
   const { params } = useLocalSearchParams();
   let post = null;
   try {
@@ -40,9 +38,28 @@ const CommentPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
+  const [avatars, setAvatars] = useState<{ [key: string]: string }>({});
+
   const commentInputRef = useRef(null);
 
   const user = auth.currentUser;
+
+  const getRandomAvatarUrl = () => {
+    return `https://avatar.iran.liara.run/public/${Math.floor(Math.random() * 100) + 1}`;
+  };
+
+  // Generate avatar URLs for each comment when the component mounts
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      const newAvatars: { [key: string]: string } = {};
+      for (const comment of comments) {
+        newAvatars[comment.id] = getRandomAvatarUrl();
+      }
+      setAvatars(newAvatars);
+    };
+
+    fetchAvatars();
+  }, [comments]);
 
   const addComment = async () => {
     if (!commentText.trim()) return;
@@ -52,7 +69,7 @@ const CommentPage = () => {
     const newComment: Comment = {
       id: Math.random().toString(36).substring(7),
       content: commentText,
-      createdAt: new Date(),
+      createdAt: Timestamp.fromDate(new Date()),
       userName: user?.email || 'Anonymous',
     };
 
@@ -110,10 +127,11 @@ const CommentPage = () => {
     }
   };
 
-  const timeAgo = (date: { seconds: number; nanoseconds: number }) => {
-    const timestamp = new Date(
-      date.seconds * 1000 + date.nanoseconds / 1000000
-    );
+  const timeAgo = (date: any) => {
+    const timestamp =
+      date instanceof Timestamp
+        ? date.toDate()
+        : new Date(date.seconds * 1000 + date.nanoseconds / 1000000);
     const diff = Math.floor(
       (new Date().getTime() - timestamp.getTime()) / 1000
     );
@@ -133,11 +151,7 @@ const CommentPage = () => {
         <Text style={styles.actionBarTitle}>Post Details</Text>
       </View>
 
-      <View
-        style={{
-          marginTop: 8,
-        }}
-      >
+      <View style={{ marginTop: 8 }}>
         <PostItem
           postData={post}
           onLikePressed={() => likePost(post.id)}
@@ -153,12 +167,16 @@ const CommentPage = () => {
         renderItem={({ item }) => (
           <Card style={styles.commentCard}>
             <View style={styles.commentHeader}>
-              <Ionicons
-                name="person-circle"
-                size={30}
-                color="#888"
-                style={styles.avatar}
-              />
+              {avatars[item.id] ? (
+                <Image
+                  source={{ uri: avatars[item.id] }}
+                  style={styles.avatar}
+                  width={40}
+                  height={40}
+                />
+              ) : (
+                <ActivityIndicator size="small" color="#0000ff" />
+              )}
               <View style={styles.commentContentContainer}>
                 <Text style={styles.userName}>{item.userName}</Text>
                 <Text style={styles.commentContent}>{item.content}</Text>

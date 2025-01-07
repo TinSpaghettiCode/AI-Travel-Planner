@@ -1,18 +1,6 @@
 import { router } from 'expo-router';
-import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
-export type Location = {
-  id: number;
-  title: string;
-  location: string;
-  category: string;
-  rating: number;
-  description: string;
-  imageUrls: string[];
-  createdAt: string;
-  author: string;
-};
+import { Location } from '../../constants/Locations';
 
 const renderRatingStars = (rating: number) => {
   const fullStars = Math.floor(rating);
