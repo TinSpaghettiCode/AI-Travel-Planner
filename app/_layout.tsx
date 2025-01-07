@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { CreateTripContext } from '@/context/CreateTripContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /* Stop at 1:46:00, Record: 30:00 */
 
@@ -28,19 +29,21 @@ export default function RootLayout() {
   }
 
   return (
-    <CreateTripContext.Provider value={{ tripData, setTripData }}>
-      <Stack screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
-        <Stack.Screen
-          name="auth/sign-in/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="auth/sign-up/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </CreateTripContext.Provider>
+    <SafeAreaProvider>
+      <CreateTripContext.Provider value={{ tripData, setTripData }}>
+        <Stack screenOptions={{ headerShown: false }}>
+          {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
+          <Stack.Screen
+            name="auth/sign-in/index"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="auth/sign-up/index"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </CreateTripContext.Provider>
+    </SafeAreaProvider>
   );
 }
