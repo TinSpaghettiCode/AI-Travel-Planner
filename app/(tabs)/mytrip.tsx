@@ -47,7 +47,6 @@ export default function MyTrip() {
       style={{
         flex: 1,
         backgroundColor: Colors.WHITE,
-        marginTop: 30,
         padding: 16,
       }}
     >
